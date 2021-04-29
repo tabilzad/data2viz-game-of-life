@@ -1,0 +1,27 @@
+plugins {
+    id 'org.jetbrains.kotlin.js' version '1.3.72'
+}
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
+    implementation "io.data2viz.d2v:core-js:0.8.0-RC10"
+    implementation "io.data2viz.d2v:color-js:0.8.0-RC10"
+    implementation "io.data2viz.d2v:scale-js:0.8.0-RC10"
+    implementation "io.data2viz.d2v:force-js:0.8.0-RC10"
+    implementation "io.data2viz.d2v:random-js:0.8.0-RC10"
+    implementation "io.data2viz.d2v:viz-js:0.8.0-RC10"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-js"
+}
+
+kotlin {
+    target {
+        browser {}
+    }
+}

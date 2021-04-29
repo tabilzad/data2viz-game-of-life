@@ -6,23 +6,24 @@ import io.data2viz.viz.*
 
 
 const val vizSize = 1280.0 + 130
-val step = 2.5;
+val step = 10.0;
+fun Double.toBoolean(): Boolean{
+    return when {
+        this < 0.5 -> false
+        else -> true
+    }
+}
 
 data class Walker(
     var x: Int, var y: Int,
-    var alive: Boolean = RandomDistribution.exponential(1.0 / 20)().let {
-        when {
-            it < 0.5 -> false
-            else -> true
-        }
-    },
+    var alive: Boolean = RandomDistribution.exponential(1.0 / 20)().toBoolean(),
     var gen: Int = 0
 )
 
 fun main() {
-    
-    val points = (0..500).map { x ->
-        (0..300).map { y ->
+
+    val points = (0..150).map { x ->
+        (0..100).map { y ->
             Walker((x), (y))
         }
     }
@@ -38,6 +39,12 @@ fun main() {
                 val neighborsAlive = workBoard.countNeighborsAliveFrom(x, y)
                 if (workBoard[x][y].alive) {
                     when {
+                        neighborsAlive > 5-> {
+                            points[x][y].apply {
+                                gen++;
+                                alive = RandomDistribution.uniform(0.0,2.0)().toBoolean()
+                            }
+                        }
                         neighborsAlive < 2 || neighborsAlive > 3 -> {
                             points[x][y].apply {
                                 gen++;
